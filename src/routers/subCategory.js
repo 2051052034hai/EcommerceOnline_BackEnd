@@ -15,6 +15,10 @@ subCategoryAPI.delete(
   "/subcategories",
   subCategoryController.deleteSubCategory
 );
+subCategoryAPI.get(
+  "/subcategories/product",
+  subCategoryController.getProductsBySub
+);
 
 // subCategoryAPI.put("/subcategories", subCategoryController.putUpdateCategory);
 // subCategoryAPI.delete("/subcategories", subCategoryController.deleteCategory);

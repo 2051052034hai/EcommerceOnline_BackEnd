@@ -54,6 +54,17 @@ const categoryController = {
       });
     }
   },
+  getProductsBySub: async (req, res) => {
+    try {
+      const { id } = req.body;
+      const result = await SubCategoryService.getProductBySub(id);
+      return res.status(200).json({
+        EC: 0,
+        data: result,
+      });
+    } catch (error) {}
+    console.log(req.body);
+  },
 };
 
 export default categoryController;

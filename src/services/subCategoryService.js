@@ -1,5 +1,6 @@
 import Category from "../models/Category";
 import Subcategory from "../models/Subcategory";
+import Product from "../models/Product";
 
 const SubCategoryService = {
   createSubCategory: async (categoryId, name) => {
@@ -30,7 +31,6 @@ const SubCategoryService = {
       throw error;
     }
   },
-
   getSubCategory: async () => {
     try {
       const result = await Subcategory.find({});
@@ -62,6 +62,14 @@ const SubCategoryService = {
       return deletedSubcategory;
     } catch (error) {
       throw error;
+    }
+  },
+  getProductBySub: async (id) => {
+    try {
+      const product = await Product.find({ subcategory: id });
+      return product;
+    } catch (error) {
+      return error;
     }
   },
 };
