@@ -7,7 +7,9 @@ const userService = {
     try {
       const result = await User.create(user);
       return result;
-    } catch (error) {}
+    } catch (error) {
+      return error;
+    }
   },
   loginUser: async (userLogin) => {
     const { email, password } = userLogin;

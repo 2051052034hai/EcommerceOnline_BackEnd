@@ -1,19 +1,28 @@
+import User from "../models/User";
 import userService from "../services/userService";
 import bcrypt from "bcrypt";
 
 const userController = {
   postCreateUser: async (req, res) => {
+    const { email } = req.body;
     try {
       const salt = await bcrypt.genSalt(10);
       const hashed = await bcrypt.hash(req.body.password, salt);
 
+      const check_email = await User.findOne({ email: email });
+
+      if (check_email) {
+        return res.status(400).json({
+          EC: 1,
+          data: "email đã tồn tại",
+        });
+      }
       const newUser = {
         username: req.body.username,
         email: req.body.email,
         password: hashed,
       };
 
-      //Create new user
       let user = await userService.saveUser(newUser);
 
       return res.status(200).json({

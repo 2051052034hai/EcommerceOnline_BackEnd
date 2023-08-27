@@ -1,16 +1,8 @@
-const path = require("path");
+import path from "path";
 
 const uploadSingleFile = async (fileObject) => {
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-
-  // save => public/images/upload
-  //remember to create the upload folder first
   let uploadPath = path.resolve(__dirname, "../public/images/upload");
-  // console.log(">>> check fileObject: ", path.resolve(__dirname, "../public/images/upload"))
 
-  // abc.png => abc-timestamp.png
-
-  //get image extension
   let extName = path.extname(fileObject.name);
 
   //get image's name (without extension)
@@ -19,9 +11,6 @@ const uploadSingleFile = async (fileObject) => {
   //create final path: eg: /upload/your-image.png
   let finalName = `${baseName}-${Date.now()}${extName}`;
   let finalPath = `${uploadPath}/${finalName}`;
-  // console.log(finalPath, "finalPath");
-
-  // console.log("final path: ", finalPath)
 
   try {
     await fileObject.mv(finalPath);
@@ -41,14 +30,12 @@ const uploadSingleFile = async (fileObject) => {
 };
 
 const uploadMultipleFiles = async (images) => {
-  console.log(images, "filesArr");
   try {
     let uploadPath = path.resolve(__dirname, "../public/images/upload");
 
     let resultArr = [];
     let countSuccess = 0;
     for (let i = 0; i < images.length; i++) {
-      console.log("check i = ", i);
       //get image extension
       let extName = path.extname(images[i].name);
 

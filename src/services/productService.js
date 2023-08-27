@@ -1,4 +1,3 @@
-import Category from "../models/Category";
 import Product from "../models/Product";
 import aqp from "api-query-params";
 
@@ -30,18 +29,24 @@ const productService = {
         .skip(offset)
         .limit(limit)
         .exec();
-      result = result.map((product) => {
-        const subcategoryNames = product.subcategory.map((subcategoryId) => {
-          const matchingCategory = population.find(
-            (category) => category._id.toString() === subcategoryId.toString()
-          );
-          return matchingCategory ? matchingCategory.name : "";
-        });
-        return {
-          ...product._doc,
-          subcategory: subcategoryNames,
-        };
-      });
+      const products = await Product.find({});
+      return {
+        result,
+        total: products.length,
+      };
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+
+  getProductById: async (id, queryString) => {
+    try {
+      // limit: số ptử cần lấy
+      const { population } = aqp(queryString);
+
+      let result = await Product.findById(id).populate(population);
+
       return result;
     } catch (error) {
       console.log(error);
