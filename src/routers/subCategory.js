@@ -16,7 +16,7 @@ subCategoryAPI.delete(
   subCategoryController.deleteSubCategory
 );
 subCategoryAPI.get(
-  "/subcategories/product",
+  "/subcategories/product/:id",
   subCategoryController.getProductsBySub
 );
 

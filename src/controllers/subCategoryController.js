@@ -46,7 +46,7 @@ const categoryController = {
         EC: 0,
         data: result,
       });
-      return;
+
     } catch (error) {
       return res.status(500).json({
         EC: 1,
@@ -56,14 +56,14 @@ const categoryController = {
   },
   getProductsBySub: async (req, res) => {
     try {
-      const { id } = req.body;
+      const { id } = req.params;
       const result = await SubCategoryService.getProductBySub(id);
       return res.status(200).json({
         EC: 0,
         data: result,
       });
     } catch (error) {}
-    console.log(req.body);
+      console.log(error);
   },
 };
 
