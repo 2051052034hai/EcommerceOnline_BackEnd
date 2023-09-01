@@ -2,6 +2,8 @@ import Category from "../models/Category";
 import Subcategory from "../models/Subcategory";
 import Product from "../models/Product";
 
+import aqp from "api-query-params";
+
 const SubCategoryService = {
   createSubCategory: async (categoryId, name) => {
     try {
@@ -64,9 +66,24 @@ const SubCategoryService = {
       throw error;
     }
   },
-  getProductBySub: async (id) => {
+  getProductBySub: async (id, queryString) => {
+    const page = queryString.page;
+
+    const { filter, limit, population, sort } = aqp(queryString);
+
+    let offset = (page - 1) * limit;
+
+    delete filter.page;
     try {
-      const product = await Product.find({ subcategory: id });
+      let productQuery = Product.find({ subcategory: id, ...filter });
+
+      const product = await productQuery
+        .populate(population)
+        .sort(sort)
+        .skip(offset)
+        .limit(limit)
+        .exec();
+
       return product;
     } catch (error) {
       return error;
