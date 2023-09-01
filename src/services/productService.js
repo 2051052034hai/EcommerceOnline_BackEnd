@@ -53,6 +53,15 @@ const productService = {
       return error;
     }
   },
+  getProductTopSale: async () => {
+    try {
+      const products = await Product.find({}).sort({ sold: -1 }).limit(10);
+      return products;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
 };
 
 export default productService;

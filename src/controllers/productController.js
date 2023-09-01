@@ -95,6 +95,18 @@ const productController = {
       });
     }
   },
+  getProductTopSale: async (req, res) => {
+    try {
+      const result = await productService.getProductTopSale();
+      return res.status(200).json({
+        EC: 0,
+        data: result,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json(error);
+    }
+  },
 };
 
 export default productController;
