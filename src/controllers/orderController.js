@@ -1,97 +1,99 @@
 import orderService from "../services/orderService";
 
-const createOrder = async (req, res) => {
-  try {
-    const { userId, orderItems, total, address, phone } = req.body;
-    if (!userId || !orderItems || !total || !address || !phone) {
-      return res.status(400).json({
-        status: "ERR",
-        message: "The input is required",
-      });
-    }
-    const response = await orderService.createOrder(req.body);
-    return res.status(200).json(response);
-  } catch (e) {
-    return res.status(404).json({
-      message: e,
-    });
-  }
-};
-
-const getAllOrderDetails = async (req, res) => {
-  try {
-    const userId = req.params.id;
-    if (!userId) {
+const orderController = {
+  createOrder: async (req, res) => {
+    try {
+      const { userId, orderItems, total } = req.body;
+      if (!userId || !orderItems || !total) {
+        return res.status(400).json({
+          EC: 1,
+          error: "The input is required",
+        });
+      }
+      const response = await orderService.createOrder(req.body);
       return res.status(200).json({
-        status: "ERR",
-        message: "The userId is required",
+        EC: 0,
+        data: response,
+      });
+    } catch (e) {
+      return res.status(404).json({
+        message: e,
       });
     }
-    const response = await OrderService.getAllOrderDetails(userId);
-    return res.status(200).json(response);
-  } catch (e) {
-    // console.log(e)
-    return res.status(404).json({
-      message: e,
-    });
-  }
-};
+  },
 
-const getDetailsOrder = async (req, res) => {
-  try {
-    const orderId = req.params.id;
-    if (!orderId) {
+  getAllOrderDetailsByUser: async (req, res) => {
+    try {
+      const userId = req.params.id;
+      if (!userId) {
+        return res.status(400).json({
+          EC: 1,
+          error: "The input is required",
+        });
+      }
+      const response = await orderService.findOrderByUserId(userId, req.query);
       return res.status(200).json({
-        status: "ERR",
-        message: "The userId is required",
+        EC: 0,
+        data: response,
+      });
+    } catch (e) {
+      // console.log(e)
+      return res.status(404).json({
+        message: e,
       });
     }
-    const response = await OrderService.getOrderDetails(orderId);
-    return res.status(200).json(response);
-  } catch (e) {
-    // console.log(e)
-    return res.status(404).json({
-      message: e,
-    });
-  }
-};
+  },
 
-const cancelOrderDetails = async (req, res) => {
-  try {
-    const data = req.body.orderItems;
-    const orderId = req.body.orderId;
-    if (!orderId) {
-      return res.status(200).json({
-        status: "ERR",
-        message: "The orderId is required",
+  getDetailsOrder: async (req, res) => {
+    try {
+      const orderId = req.params.id;
+      if (!orderId) {
+        return res.status(200).json({
+          status: "ERR",
+          message: "The userId is required",
+        });
+      }
+      const response = await OrderService.getOrderDetails(orderId);
+      return res.status(200).json(response);
+    } catch (e) {
+      // console.log(e)
+      return res.status(404).json({
+        message: e,
       });
     }
-    const response = await OrderService.cancelOrderDetails(orderId, data);
-    return res.status(200).json(response);
-  } catch (e) {
-    // console.log(e)
-    return res.status(404).json({
-      message: e,
-    });
-  }
+  },
+
+  cancelOrderDetails: async (req, res) => {
+    try {
+      const data = req.body.orderItems;
+      const orderId = req.body.orderId;
+      if (!orderId) {
+        return res.status(200).json({
+          status: "ERR",
+          message: "The orderId is required",
+        });
+      }
+      const response = await OrderService.cancelOrderDetails(orderId, data);
+      return res.status(200).json(response);
+    } catch (e) {
+      // console.log(e)
+      return res.status(404).json({
+        message: e,
+      });
+    }
+  },
+
+  getAllOrder: async (req, res) => {
+    try {
+      const data = await orderService.getAllOrder();
+      return res.status(200).json(data);
+    } catch (e) {
+      // console.log(e)
+      return res.status(404).json({
+        message: e,
+      });
+    }
+  },
 };
 
-const getAllOrder = async (req, res) => {
-  try {
-    const data = await OrderService.getAllOrder();
-    return res.status(200).json(data);
-  } catch (e) {
-    // console.log(e)
-    return res.status(404).json({
-      message: e,
-    });
-  }
-};
-
-module.exports = {
-  createOrder,
-  getAllOrderDetails,
-  getDetailsOrder,
-  cancelOrderDetails,
-  getAllOrder,
-};
+export default orderController;

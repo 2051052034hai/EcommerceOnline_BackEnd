@@ -21,9 +21,9 @@ const userSchema = new mongoose.Schema(
       require: true,
       min: 6,
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
+    role: {
+      type: Number,
+      default: 1, // 1: user- 2: seller -3 :admin
     },
   },
   { timestamps: true }

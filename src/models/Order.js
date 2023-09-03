@@ -26,14 +26,6 @@ const OrderSchema = new Schema(
       type: Number,
       required: true,
     },
-    address: {
-      type: String,
-      require: true,
-    },
-    phone: {
-      type: String,
-      require: true,
-    },
   },
   {
     timestamps: true,
@@ -41,6 +33,6 @@ const OrderSchema = new Schema(
 );
 OrderSchema.plugin(mongoose_delete, { overrideMethods: "all" });
 
-Order = mongoose.model("Order", OrderSchema);
+const Order = mongoose.model("Order", OrderSchema);
 
 export default Order;

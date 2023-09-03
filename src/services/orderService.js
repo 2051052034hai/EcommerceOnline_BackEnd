@@ -3,19 +3,17 @@ import Order from "../models/Order";
 
 const orderService = {
   createOrder: async (order) => {
-    const newOrder = new Order.create(order);
+    const newOrder = await Order.create(order);
     return newOrder;
+  },
+  getAllOrder: async () => {
+    const orders = await Order.find({});
+    return orders;
   },
   findOrderByUserId: async (userId, queryString) => {
     const { population } = aqp(queryString);
 
-    const orders = await Order.find({ user: userId })
-      .populate({
-        path: "orderItems.product",
-        model: "Product",
-      })
-      .populate(population)
-      .exec();
+    const orders = await Order.find({ userId: userId }).populate(population);
     return orders;
   },
   getOrder: async (queryString) => {

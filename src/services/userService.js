@@ -38,12 +38,12 @@ const userService = {
 
       const access_token = await genneralAccessToken({
         id: user.id,
-        isAdmin: user.isAdmin,
+        role: user.role,
       });
 
       const refresh_token = await genneralRefreshToken({
         id: user.id,
-        isAdmin: user.isAdmin,
+        role: user.role,
       });
 
       // Trả về user sau khi đã bỏ password
