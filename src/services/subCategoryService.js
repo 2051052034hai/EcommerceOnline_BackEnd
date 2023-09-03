@@ -83,8 +83,11 @@ const SubCategoryService = {
         .skip(offset)
         .limit(limit)
         .exec();
-
-      return product;
+    const productsBySubId = await Product.find({subcategory: id});
+     return {
+        total: productsBySubId.length,
+        product,
+      };
     } catch (error) {
       return error;
     }
