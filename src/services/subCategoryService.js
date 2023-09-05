@@ -76,7 +76,6 @@ const SubCategoryService = {
     delete filter.page;
     try {
       let productQuery = Product.find({ subcategory: id, ...filter });
-
       const product = await productQuery
         .populate(population)
         .sort(sort)

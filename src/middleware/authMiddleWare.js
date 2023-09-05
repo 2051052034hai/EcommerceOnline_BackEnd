@@ -21,7 +21,6 @@ const authMiddleWare = {
   },
   verifyTokenAndAdminAuth: async (req, res, next) => {
     middlewareController.verifyToken(req, res, () => {
-      console.log(req.user);
       if (req.user.id == req.params.id || req.user.admin) {
         next();
       } else {

@@ -3,7 +3,6 @@ import Category from "../models/Category";
 
 const categoryService = {
   getAllCategory: async (queryString) => {
-    console.log(queryString);
     try {
       const { population, filter } = aqp(queryString);
       const result = await Category.find(filter).populate(population).exec();

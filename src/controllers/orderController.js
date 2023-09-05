@@ -37,7 +37,6 @@ const orderController = {
         data: response,
       });
     } catch (e) {
-      // console.log(e)
       return res.status(404).json({
         message: e,
       });
@@ -56,7 +55,6 @@ const orderController = {
       const response = await OrderService.getOrderDetails(orderId);
       return res.status(200).json(response);
     } catch (e) {
-      // console.log(e)
       return res.status(404).json({
         message: e,
       });
@@ -88,7 +86,6 @@ const orderController = {
       const data = await orderService.getAllOrder();
       return res.status(200).json(data);
     } catch (e) {
-      // console.log(e)
       return res.status(404).json({
         message: e,
       });
