@@ -19,7 +19,10 @@ subCategoryAPI.get(
   "/subcategories/product/:id",
   subCategoryController.getProductsBySub
 );
-
+subCategoryAPI.get(
+  "/subcategories",
+  subCategoryController.getAllSubCategory
+);
 // subCategoryAPI.put("/subcategories", subCategoryController.putUpdateCategory);
 // subCategoryAPI.delete("/subcategories", subCategoryController.deleteCategory);
 
