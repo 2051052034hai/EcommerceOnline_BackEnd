@@ -10,7 +10,10 @@ const categoryController = {
         data: result,
       });
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        EC: 1,
+        data: error,
+      });
     }
   },
   postCreateSubCategory: async (req, res) => {
@@ -25,7 +28,10 @@ const categoryController = {
         data: result,
       });
     } catch (error) {
-      return res.status(500).json(error);
+      return res.status(500).json({
+        EC: 1,
+        data: error,
+      });
     }
   },
   putUpdateCategory: async (req, res) => {
@@ -63,7 +69,10 @@ const categoryController = {
         data: result,
       });
     } catch (error) {
-      console.log(error);
+      return res.status(500).json({
+        EC: 1,
+        data: error,
+      });
     }
   },
 };

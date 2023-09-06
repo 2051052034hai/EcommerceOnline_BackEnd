@@ -76,8 +76,10 @@ const productController = {
         data: result,
       });
     } catch (error) {
-      console.log(error);
-      return res.status(500).json(error);
+      return res.status(500).json({
+        EC: 1,
+        data: error,
+      });
     }
   },
   getProductById: async (req, res) => {
@@ -91,7 +93,7 @@ const productController = {
     } catch (error) {
       return res.status(500).json({
         EC: 0,
-        data: null,
+        data: error,
       });
     }
   },
@@ -103,7 +105,20 @@ const productController = {
         data: result,
       });
     } catch (error) {
-      console.log(error);
+      return res.status(500).json({
+        EC: 0,
+        data: error,
+      });
+    }
+  },
+  putUpddateProduct: async (req, res) => {
+    try {
+      const product = await productService.updateProduct(req.body);
+      return res.status(201).json({
+        EC: 0,
+        data: product,
+      });
+    } catch (error) {
       return res.status(500).json(error);
     }
   },

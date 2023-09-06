@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 
-import jwt from "jsonwebtoken";
 const authMiddleWare = {
   //verify
   verifyToken: async (req, res, next) => {
@@ -10,21 +9,31 @@ const authMiddleWare = {
       const accessToken = token.split(" ")[1];
       jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
         if (err) {
-          return res.status(403).json("Token is not valid");
+          return res.status(403).json({
+            EC: 1,
+            data: "Token is not valid",
+          });
         }
+        console.log(user);
         req.user = user;
         next();
       });
     } else {
-      return res.status(401).json("you are not authenticated");
+      return res.status(401).json({
+        EC: 1,
+        data: "you are not authenticated",
+      });
     }
   },
   verifyTokenAndAdminAuth: async (req, res, next) => {
     middlewareController.verifyToken(req, res, () => {
-      if (req.user.id == req.params.id || req.user.admin) {
+      if (req.user.id == req.params.id || req.user.role === 3) {
         next();
       } else {
-        res.status(403).json("You are not allowed to delete other");
+        res.status(403).json({
+          EC: 0,
+          data: "You are not allowed to delete other",
+        });
       }
     });
   },

@@ -1,5 +1,6 @@
 import express from "express";
-import categoryController from "../controllers/categoryController"; // Import your controller
+import categoryController from "../controllers/categoryController";
+import authMiddleWare from "../middleware/authMiddleWare";
 
 const categoryAPI = express.Router();
 

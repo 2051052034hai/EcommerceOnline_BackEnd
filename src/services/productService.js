@@ -62,6 +62,17 @@ const productService = {
       return error;
     }
   },
+  updateProduct: async (data) => {
+    const { _id, subcategory, ...rest } = data;
+    console.log(rest);
+    try {
+      let result = await Product.findOneAndUpdate({ _id }, rest);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
 };
 
 export default productService;

@@ -55,5 +55,13 @@ const userService = {
       return e;
     }
   },
+  getAllUsers: async (user) => {
+    try {
+      const result = await User.find({});
+      return result;
+    } catch (error) {
+      return error;
+    }
+  },
 };
 export default userService;
