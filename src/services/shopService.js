@@ -19,12 +19,13 @@ const ShopService = {
         throw new Error("Không tìm thấy cửa hàng cho người dùng hiện tại");
       }
 
-      return shop._id;
+      return shop;
     } catch (error) {
       console.log(error);
       throw error;
     }
   },
+
 
   getProductsByShopId: async (shopId, queryString) => {
     const page = queryString.page;

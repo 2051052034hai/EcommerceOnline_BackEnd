@@ -19,9 +19,8 @@ const ShopController = {
   getProductsByShopId: async (req, res) => {
    
     try {
-      const { id:userId } = req.params;
-      const shopId = await ShopService.getShopIdByUserId(userId);
-      const products = await ShopService.getProductsByShopId(shopId, req.query);
+      const {id} = req.params;
+      const products = await ShopService.getProductsByShopId(id, req.query);
       return res.status(200).json({
         EC: 0,
         data: products,
@@ -33,6 +32,25 @@ const ShopController = {
       });
     }
   },
+
+  getShopIdByUserId: async (req, res) => {
+    
+    try {
+      const { id } = req.params;
+      
+      const shop = await ShopService.getShopIdByUserId(id);
+      return res.status(200).json({
+        EC: 0,
+        data: shop,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        EC: 1,
+        error: error.message,
+      });
+    }
+  },
+
 
 };
 
