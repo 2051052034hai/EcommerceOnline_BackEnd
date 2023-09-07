@@ -12,7 +12,6 @@ const productService = {
       return error;
     }
   },
-
   getProducts: async (queryString) => {
     try {
       const page = queryString.page;
@@ -39,7 +38,6 @@ const productService = {
       return error;
     }
   },
-
   getProductById: async (id, queryString) => {
     try {
       // limit: số ptử cần lấy
@@ -67,6 +65,15 @@ const productService = {
     console.log(rest);
     try {
       let result = await Product.findOneAndUpdate({ _id }, rest);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+  deleteProduct: async (id) => {
+    try {
+      let result = await Product.deleteOne({ _id: id });
       return result;
     } catch (error) {
       console.log(error);

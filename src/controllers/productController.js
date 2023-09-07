@@ -122,6 +122,21 @@ const productController = {
       return res.status(500).json(error);
     }
   },
+  deleteProduct: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const result = await productService.deleteProduct(id);
+      return res.status(204).json({
+        EC: 0,
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        EC: 1,
+        data: result,
+      });
+    }
+  },
 };
 
 export default productController;
