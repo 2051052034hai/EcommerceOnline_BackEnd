@@ -61,7 +61,7 @@ const productService = {
     }
   },
   updateProduct: async (data) => {
-    const { _id, subcategory, ...rest } = data;
+    const { _id, ...rest } = data;
     console.log(rest);
     try {
       let result = await Product.findOneAndUpdate({ _id }, rest);
@@ -73,7 +73,7 @@ const productService = {
   },
   deleteProduct: async (id) => {
     try {
-      let result = await Product.deleteOne({ _id: id });
+      let result = await Product.findOneAndDelete({ _id: id });
       return result;
     } catch (error) {
       console.log(error);
