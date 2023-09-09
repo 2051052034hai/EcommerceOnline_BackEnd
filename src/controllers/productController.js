@@ -20,7 +20,7 @@ const productController = {
       const { thumbnail, images } = req.files;
       let mainImage = "";
       const additionalImageUrls = [];
-      if (!req.files || Object.keys(req.files).length === 0) {
+      if (!req.files || Object.keys(req.files)?.length === 0) {
         return res.status(400).send("No files were uploaded.");
       } else {
         let imagethumb = await uploadSingleFile(thumbnail);
@@ -28,7 +28,7 @@ const productController = {
         let arrayImage = await uploadMultipleFiles(images);
 
         // kiểm tra nếu có phần tử thì map qua và lưu vào cloudinary
-        if (arrayImage.detail.length > 0) {
+        if (arrayImage?.detail?.length > 0) {
           for (const item of arrayImage.detail) {
             // Tải lên hình ảnh phụ
             let itemImg = await uploadImage(item.path);
@@ -123,10 +123,11 @@ const productController = {
     }
   },
   deleteProduct: async (req, res) => {
-    const { id } = req.params;
     try {
+      const { id } = req.params;
+
       const result = await productService.deleteProduct(id);
-      return res.status(204).json({
+      return res.status(200).json({
         EC: 0,
         data: result,
       });

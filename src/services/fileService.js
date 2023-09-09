@@ -34,7 +34,7 @@ const uploadMultipleFiles = async (images) => {
 
     let resultArr = [];
     let countSuccess = 0;
-    for (let i = 0; i < images.length; i++) {
+    for (let i = 0; i < images?.length; i++) {
       //get image extension
       let extName = path.extname(images[i].name);
 

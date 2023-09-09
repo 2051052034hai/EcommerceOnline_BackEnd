@@ -15,9 +15,6 @@ const ShopService = {
   getShopIdByUserId: async (userId) => {
     try {
       const shop = await Shop.findOne({ userId });
-      if (!shop) {
-        throw new Error("Không tìm thấy cửa hàng cho người dùng hiện tại");
-      }
 
       return shop;
     } catch (error) {
@@ -25,7 +22,6 @@ const ShopService = {
       throw error;
     }
   },
-
 
   getProductsByShopId: async (shopId, queryString) => {
     const page = queryString.page;
