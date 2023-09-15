@@ -6,9 +6,10 @@ dotenv.config();
 const paymentAPI = express.Router();
 
 paymentAPI.get("/payment/config", (req, res) => {
+  const clientId = process.env.CLIENT_ID;
   return res.status(200).json({
     EC: 0,
-    data: process.env.CLIENT_ID,
+    data: clientId,
   });
 });
 
