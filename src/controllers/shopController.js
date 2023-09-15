@@ -17,9 +17,8 @@ const ShopController = {
   },
 
   getProductsByShopId: async (req, res) => {
-   
     try {
-      const {id} = req.params;
+      const { id } = req.params;
       const products = await ShopService.getProductsByShopId(id, req.query);
       return res.status(200).json({
         EC: 0,
@@ -34,10 +33,9 @@ const ShopController = {
   },
 
   getShopIdByUserId: async (req, res) => {
-    
     try {
       const { id } = req.params;
-      
+
       const shop = await ShopService.getShopIdByUserId(id);
       return res.status(200).json({
         EC: 0,
@@ -50,8 +48,31 @@ const ShopController = {
       });
     }
   },
+  getAllShops: async (req, res) => {
+    try {
+      const result = await ShopService.getShops(req.query);
 
+      let shopArr = [];
 
+      for (const shop of result) {
+        const p = await ShopService.getProductsByShopId(shop._id, req.query);
+
+        if (p.products.length > 0) {
+          shopArr.push(shop);
+        }
+      }
+
+      return res.status(200).json({
+        EC: 0,
+        data: shopArr,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        EC: 1,
+        data: error,
+      });
+    }
+  },
 };
 
 export default ShopController;
