@@ -6,5 +6,6 @@ userAPI.post("/user/register", userController.postCreateUser);
 userAPI.post("/user/login", userController.loginUser);
 
 userAPI.get("/users", userController.getAllUsers);
+userAPI.get("/users/:id", userController.getUserByUserId);
 
 export default userAPI;

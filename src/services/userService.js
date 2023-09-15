@@ -63,5 +63,13 @@ const userService = {
       return error;
     }
   },
+  getUserByUserId: async (userId) => {
+    try {
+      const result = await User.findOne({ _id: userId });
+      return result;
+    } catch (error) {
+      return error;
+    }
+  },
 };
 export default userService;

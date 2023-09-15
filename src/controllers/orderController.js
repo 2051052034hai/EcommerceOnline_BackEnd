@@ -1,4 +1,6 @@
 import orderService from "../services/orderService";
+import { sendEmailCreateOrder } from "../services/emailService";
+import userService from "../services/userService";
 
 const orderController = {
   createOrder: async (req, res) => {
@@ -11,6 +13,12 @@ const orderController = {
         });
       }
       const response = await orderService.createOrder(req.body);
+      const user = await userService.getUserByUserId(userId);
+
+      if (response && user) {
+        await sendEmailCreateOrder(user?.email, orderItems, total);
+      }
+
       return res.status(200).json({
         EC: 0,
         data: response,

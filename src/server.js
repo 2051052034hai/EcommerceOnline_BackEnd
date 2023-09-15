@@ -11,7 +11,6 @@ import productAPI from "./routers/productAPI";
 import subCategoryAPI from "./routers/subCategory";
 import shopAPI from "./routers/shopAPI";
 import orderAPI from "./routers/orderAPI";
-import paymentAPI from "./routers/paymentAPI";
 import uploadImageAPI from "./routers/uploadImageAPI";
 
 dotenv.config();
@@ -38,7 +37,6 @@ app.use("/v1/api/", productAPI);
 app.use("/v1/api/", subCategoryAPI);
 app.use("/v1/api/", shopAPI);
 app.use("/v1/api/", orderAPI);
-app.use("/v1/api/", paymentAPI);
 app.use("/v1/api/", uploadImageAPI);
 
 app.listen(8000, () => {
