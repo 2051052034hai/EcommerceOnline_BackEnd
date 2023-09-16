@@ -15,6 +15,10 @@ const OrderSchema = new Schema(
           ref: "Product",
         },
         qty: Number,
+        shop: {
+          type: Schema.Types.ObjectId,
+          ref: "Shop",
+        }
       },
     ],
 

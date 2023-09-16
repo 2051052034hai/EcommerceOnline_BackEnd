@@ -23,11 +23,21 @@ const productService = {
       let offset = (page - 1) * limit;
 
       delete filter.page;
-      let result = await Product.find(filter)
-        .populate(population)
-        .skip(offset)
-        .limit(limit)
-        .exec();
+
+      let result;
+      if (page) {
+        result = await Product.find(filter)
+          .populate(population)
+          .skip(offset)
+          .limit(limit)
+          .exec();
+      } else {
+        result = await Product.find(filter)
+          .populate(population)
+          .limit(limit)
+          .exec();
+      }
+
       const products = await Product.find({});
       return {
         result,
