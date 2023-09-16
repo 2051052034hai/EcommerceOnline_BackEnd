@@ -16,6 +16,23 @@ const orderService = {
     const orders = await Order.find({ userId: userId }).populate(population);
     return orders;
   },
+
+  findOrderItemsByShopId: async (shopId) => {
+    const orders = await Order.find({});
+
+    let orderArr = [];
+
+    for (let order of orders) {
+      let product = order.orderItems.filter((item) => (item.shop = shopId));
+      orderArr.push({
+        userId: order.userId,
+        product,
+      });
+    }
+
+    return orderArr;
+  },
+
   getOrder: async (queryString) => {
     const page = queryString.page;
     const { filter, limit, population } = aqp(queryString);

@@ -51,6 +51,29 @@ const orderController = {
     }
   },
 
+  getAllOrderDetailsByShopId: async (req, res) => {
+    try {
+      const shopId = req.params.id;
+      if (!shopId) {
+        return res.status(400).json({
+          EC: 1,
+          error: "The input is required",
+        });
+      }
+      const response = await orderService.findOrderItemsByShopId(shopId);
+      return res.status(200).json({
+        EC: 0,
+        data: response,
+      });
+    } catch (e) {
+      return res.status(404).json({
+        message: e,
+      });
+    }
+  },
+
+  
+
   getDetailsOrder: async (req, res) => {
     try {
       const orderId = req.params.id;
