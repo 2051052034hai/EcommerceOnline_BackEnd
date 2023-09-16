@@ -12,6 +12,30 @@ const ShopService = {
       return error;
     }
   },
+  getShops: async (queryString) => {
+    try {
+      const page = queryString.page;
+
+      // limit: số ptử cần lấy
+      const { filter, limit, population } = aqp(queryString);
+
+      // bỏ qua phần offset ptử
+      let offset = (page - 1) * limit;
+
+      delete filter.page;
+      let result = await Shop.find(filter)
+        .populate(population)
+        .skip(offset)
+        .limit(limit)
+        .exec();
+
+      return result
+
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
   getShopIdByUserId: async (userId) => {
     try {
       const shop = await Shop.findOne({ userId });
