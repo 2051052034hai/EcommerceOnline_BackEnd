@@ -18,14 +18,13 @@ const OrderSchema = new Schema(
         shop: {
           type: Schema.Types.ObjectId,
           ref: "Shop",
-        }
+        },
+        statusPayment: {
+          type: Boolean,
+          default: false,
+        },
       },
     ],
-
-    statusPayment: {
-      type: Boolean,
-      default: false,
-    },
     total: {
       type: Number,
       required: true,
