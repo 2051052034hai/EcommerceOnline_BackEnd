@@ -31,7 +31,6 @@ const ShopController = {
       });
     }
   },
-
   getShopIdByUserId: async (req, res) => {
     try {
       const { id } = req.params;
@@ -51,6 +50,7 @@ const ShopController = {
   getAllShops: async (req, res) => {
     try {
       const result = await ShopService.getShops(req.query);
+
       return res.status(200).json({
         EC: 0,
         data: result,
