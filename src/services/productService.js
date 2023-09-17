@@ -16,29 +16,20 @@ const productService = {
     try {
       const page = queryString.page;
 
-      // limit: số ptử cần lấy
       const { filter, limit, population } = aqp(queryString);
 
-      // bỏ qua phần offset ptử
       let offset = (page - 1) * limit;
 
       delete filter.page;
 
-      let result;
-      if (page) {
-        result = await Product.find(filter)
-          .populate(population)
-          .skip(offset)
-          .limit(limit)
-          .exec();
-      } else {
-        result = await Product.find(filter)
-          .populate(population)
-          .limit(limit)
-          .exec();
-      }
+      let result = await Product.find(filter)
+        .populate(population)
+        .skip(offset)
+        .limit(limit)
+        .exec();
 
       const products = await Product.find({});
+
       return {
         result,
         total: products.length,
@@ -50,7 +41,6 @@ const productService = {
   },
   getProductById: async (id, queryString) => {
     try {
-      // limit: số ptử cần lấy
       const { population } = aqp(queryString);
 
       let result = await Product.findById(id).populate(population);

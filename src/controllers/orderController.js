@@ -60,10 +60,14 @@ const orderController = {
           error: "The input is required",
         });
       }
-      const response = await orderService.findOrderItemsByShopId(shopId);
+      const { result, total } = await orderService.findOrderItemsByShopId(
+        shopId,
+        req.query
+      );
       return res.status(200).json({
         EC: 0,
-        data: response,
+        total: total,
+        data: result,
       });
     } catch (e) {
       return res.status(404).json({
@@ -71,8 +75,6 @@ const orderController = {
       });
     }
   },
-
-  
 
   getDetailsOrder: async (req, res) => {
     try {

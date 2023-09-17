@@ -51,20 +51,9 @@ const ShopController = {
   getAllShops: async (req, res) => {
     try {
       const result = await ShopService.getShops(req.query);
-
-      let shopArr = [];
-
-      for (const shop of result) {
-        const p = await ShopService.getProductsByShopId(shop._id, req.query);
-
-        if (p.products.length > 0) {
-          shopArr.push(shop);
-        }
-      }
-
       return res.status(200).json({
         EC: 0,
-        data: shopArr,
+        data: result,
       });
     } catch (error) {
       return res.status(500).json({
