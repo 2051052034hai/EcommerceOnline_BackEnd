@@ -17,20 +17,38 @@ const orderService = {
     return orders;
   },
 
-  findOrderItemsByShopId: async (shopId) => {
-    const orders = await Order.find({});
+  findOrderItemsByShopId: async (shopId, queryString) => {
+    const { filter, population } = aqp(queryString);
+
+    delete filter.page;
+
+    let result = await Order.find(filter).populate(population).exec();
 
     let orderArr = [];
+    let total = 0;
 
-    for (let order of orders) {
-      let product = order.orderItems.filter((item) => (item.shop = shopId));
-      orderArr.push({
-        userId: order.userId,
-        product,
+    for (let order of result) {
+      let data = order.orderItems.filter((item) => {
+        return item.shop.toString() === shopId;
       });
+
+      if (data.length > 0) {
+        for (let item of data) {
+          total += 1;
+        }
+
+        orderArr.push({
+          userId: order.userId,
+          createdAt: order.createdAt,
+          data,
+        });
+      }
     }
 
-    return orderArr;
+    return {
+      total: total,
+      result: orderArr,
+    };
   },
 
   getOrder: async (queryString) => {
