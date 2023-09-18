@@ -8,4 +8,7 @@ userAPI.post("/user/login", userController.loginUser);
 userAPI.get("/users", userController.getAllUsers);
 userAPI.get("/users/:id", userController.getUserByUserId);
 
+userAPI.put("/users", userController.updateUserById);
+userAPI.post("/change-password", userController.changePassword);
+
 export default userAPI;

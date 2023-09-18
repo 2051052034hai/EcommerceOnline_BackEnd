@@ -82,7 +82,7 @@ const orderController = {
       if (!orderId) {
         return res.status(200).json({
           status: "ERR",
-          message: "The userId is required",
+          message: "The orderId is required",
         });
       }
       const response = await OrderService.getOrderDetails(orderId);
@@ -117,10 +117,14 @@ const orderController = {
   getAllOrder: async (req, res) => {
     try {
       const data = await orderService.getAllOrder();
-      return res.status(200).json(data);
+      return res.status(200).json({
+        EC: 0,
+        data: data,
+      });
     } catch (e) {
       return res.status(404).json({
-        message: e,
+        EC: 1,
+        data: e,
       });
     }
   },

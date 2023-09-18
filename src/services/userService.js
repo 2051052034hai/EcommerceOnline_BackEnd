@@ -71,5 +71,14 @@ const userService = {
       return error;
     }
   },
+  updateUserById: async (user) => {
+    const { _id } = user;
+    try {
+      const result = await User.updateOne({ _id, ...user });
+      return result;
+    } catch (error) {
+      return error;
+    }
+  },
 };
 export default userService;

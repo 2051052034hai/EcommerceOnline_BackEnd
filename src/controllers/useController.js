@@ -96,6 +96,65 @@ const userController = {
       });
     }
   },
+  updateUserById: async (req, res) => {
+    try {
+      const { _id, username, updateAt, password } = req.body;
+      let user = {};
+      if (password) {
+        const salt = await bcrypt.genSalt(10);
+        const hashed = await bcrypt.hash(password, salt);
+        user = {
+          _id,
+          username,
+          updateAt,
+          password: hashed,
+        };
+      } else {
+        user = {
+          _id,
+          username,
+          updateAt,
+        };
+      }
+      const result = await userService.updateUserById(user);
+      return res.status(200).json({
+        EC: 0,
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        EC: 0,
+        data: error,
+      });
+    }
+  },
+  changePassword: async (req, res) => {
+    try {
+      const { _id, currentPassword, newPassword } = req.body;
+
+      // Tìm người dùng dựa trên username
+      const user = await User.findOne({ _id });
+
+      if (user && bcrypt.compareSync(currentPassword, user.password)) {
+        const hashedNewPassword = bcrypt.hashSync(newPassword, 10);
+
+        await User.updateOne(
+          { _id: user._id },
+          { password: hashedNewPassword }
+        );
+
+        return res
+          .status(200)
+          .json({ message: "Thay đổi mật khẩu thành công" });
+      } else {
+        return res
+          .status(401)
+          .json({ message: "Mật khẩu hiện tại không đúng" });
+      }
+    } catch (error) {
+      return res.status(500).json({ message: "Lỗi server" });
+    }
+  },
 };
 
 export default userController;
