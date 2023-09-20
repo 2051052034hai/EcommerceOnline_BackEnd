@@ -29,8 +29,7 @@ const ShopService = {
         .limit(limit)
         .exec();
 
-      return result
-
+      return result;
     } catch (error) {
       console.log(error);
       return error;
@@ -46,7 +45,6 @@ const ShopService = {
       throw error;
     }
   },
-
   getProductsByShopId: async (shopId, queryString) => {
     const page = queryString.page;
 
@@ -73,6 +71,25 @@ const ShopService = {
     } catch (error) {
       console.log(error);
       throw error;
+    }
+  },
+  updateShopById: async (shop) => {
+    try {
+      const { _id, ...rest } = shop;
+      const result = await Shop.updateOne({ _id }, rest);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+  deleteShop: async (_id) => {
+    try {
+      const result = await Shop.deleteOne({ _id });
+      return result;
+    } catch (error) {
+      console.log(error);
+      return error;
     }
   },
 };

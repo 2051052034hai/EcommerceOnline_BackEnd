@@ -74,7 +74,15 @@ const userService = {
   updateUserById: async (user) => {
     const { _id } = user;
     try {
-      const result = await User.updateOne({ _id, ...user });
+      const result = await User.updateOne({ _id }, user);
+      return result;
+    } catch (error) {
+      return error;
+    }
+  },
+  deleteUser: async (_id) => {
+    try {
+      const result = await User.deleteOne({ _id });
       return result;
     } catch (error) {
       return error;

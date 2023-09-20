@@ -116,6 +116,7 @@ const userController = {
           updateAt,
         };
       }
+      console.log(user);
       const result = await userService.updateUserById(user);
       return res.status(200).json({
         EC: 0,
@@ -153,6 +154,22 @@ const userController = {
       }
     } catch (error) {
       return res.status(500).json({ message: "Lỗi server" });
+    }
+  },
+  deleteUser: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const result = userService.deleteUser({ _id: id });
+      return res.status(204).json({
+        EC: 0,
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        EC: 0,
+        data: error,
+      });
     }
   },
 };

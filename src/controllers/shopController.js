@@ -15,7 +15,6 @@ const ShopController = {
       });
     }
   },
-
   getProductsByShopId: async (req, res) => {
     try {
       const { id } = req.params;
@@ -52,6 +51,37 @@ const ShopController = {
       const result = await ShopService.getShops(req.query);
 
       return res.status(200).json({
+        EC: 0,
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        EC: 1,
+        data: error,
+      });
+    }
+  },
+  updateShopById: async (req, res) => {
+    try {
+      const result = await ShopService.updateShopById(req.body);
+
+      return res.status(200).json({
+        EC: 0,
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        EC: 1,
+        data: error,
+      });
+    }
+  },
+  deleteShopById: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await ShopService.deleteShop(id);
+
+      return res.status(204).json({
         EC: 0,
         data: result,
       });

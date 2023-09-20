@@ -11,4 +11,6 @@ userAPI.get("/users/:id", userController.getUserByUserId);
 userAPI.put("/users", userController.updateUserById);
 userAPI.post("/change-password", userController.changePassword);
 
+userAPI.delete("/user/:id", userController.deleteUser);
+
 export default userAPI;
