@@ -1,12 +1,19 @@
 import Shop from "../models/Shop";
 import Product from "../models/Product";
 import aqp from "api-query-params";
+import User from "../models/User";
 
 const ShopService = {
   createShop: async (infoShop) => {
     try {
-      const result = await Shop.create(infoShop);
-      return result;
+      const { userId } = infoShop;
+      const user = await User.findOne({ _id: userId });
+      user.role = 2;
+      console.log(user);
+      // await User.updateOne({ _id: userId }, user);
+
+      // const result = await Shop.create(infoShop);
+      // return result;
     } catch (error) {
       console.log(error);
       return error;

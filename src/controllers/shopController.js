@@ -1,3 +1,4 @@
+import User from "../models/User";
 import ShopService from "../services/shopService";
 
 const ShopController = {
