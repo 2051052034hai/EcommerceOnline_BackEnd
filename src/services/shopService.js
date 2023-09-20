@@ -9,11 +9,10 @@ const ShopService = {
       const { userId } = infoShop;
       const user = await User.findOne({ _id: userId });
       user.role = 2;
-      console.log(user);
-      // await User.updateOne({ _id: userId }, user);
 
-      // const result = await Shop.create(infoShop);
-      // return result;
+      await User.updateOne({ _id: userId }, user);
+      const result = await Shop.create(infoShop);
+      return result;
     } catch (error) {
       console.log(error);
       return error;
