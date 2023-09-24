@@ -28,16 +28,15 @@ const orderService = {
     let total = 0;
 
     for (let order of result) {
+       
       let data = order.orderItems.filter((item) => {
         return item.shop.toString() === shopId;
       });
 
       if (data.length > 0) {
-        for (let item of data) {
-          total += 1;
-        }
-
+        total += 1;
         orderArr.push({
+          orderId: order._id,
           userId: order.userId,
           createdAt: order.createdAt,
           data,
@@ -74,6 +73,25 @@ const orderService = {
       .populate(population)
       .exec();
     return orders;
+  },
+  updateOrderStatusPayment: async (shopId, orderId) => {
+    try {
+      const updatedOrder = await Order.findOneAndUpdate(
+        {
+          _id: orderId,
+          "orderItems.shop": shopId,
+        },
+        { $set: { "orderItems.$[elem].statusPayment": true } },
+        { new: true, arrayFilters: [{ "elem.shop": shopId }] }
+      );
+
+      if (!updatedOrder) {
+        throw new Error("Không tìm thấy đơn hàng phù hợp");
+      }
+      return updatedOrder;
+    } catch (error) {
+      throw error;
+    }
   },
 };
 

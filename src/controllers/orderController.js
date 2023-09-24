@@ -85,7 +85,7 @@ const orderController = {
           message: "The orderId is required",
         });
       }
-      const response = await OrderService.getOrderDetails(orderId);
+      const response = await orderService.getOrderDetails(orderId);
       return res.status(200).json(response);
     } catch (e) {
       return res.status(404).json({
@@ -104,7 +104,7 @@ const orderController = {
           message: "The orderId is required",
         });
       }
-      const response = await OrderService.cancelOrderDetails(orderId, data);
+      const response = await orderService.cancelOrderDetails(orderId, data);
       return res.status(200).json(response);
     } catch (e) {
       // console.log(e)
@@ -120,6 +120,24 @@ const orderController = {
       return res.status(200).json({
         EC: 0,
         data: data,
+      });
+    } catch (e) {
+      return res.status(404).json({
+        EC: 1,
+        data: e,
+      });
+    }
+  },
+
+  updateOrderStatusPayment: async (req, res) => {
+    try {
+      const { shopId, orderId} = req.body;
+      const result = await orderService.updateOrderStatusPayment(
+        shopId, orderId
+      );
+      return res.status(200).json({
+        EC: 0,
+        data: result,
       });
     } catch (e) {
       return res.status(404).json({
