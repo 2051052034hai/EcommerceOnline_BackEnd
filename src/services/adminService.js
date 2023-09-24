@@ -11,7 +11,10 @@ const  adminService= {
             role:3
           });
           if (user === null) {
-            return "The user is not defined"
+            return {
+              status: "ERR",
+              message: "The user is not defined",
+            };
           }
           const comparePassword = bcrypt.compareSync(
             userLogin.password,
@@ -19,7 +22,10 @@ const  adminService= {
           );
     
           if (!comparePassword) {
-            return  "The password or user is incorrect"
+            return {
+              status: "ERR",
+              message: "The password or user is incorrect",
+            };
           
           }
     
