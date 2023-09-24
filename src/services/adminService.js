@@ -1,5 +1,5 @@
 import aqp from "api-query-params";
-import user from "../models/User";
+import User from "../models/User";
 
 const  adminService= {
     loginUser: async (userLogin) => {
@@ -11,10 +11,7 @@ const  adminService= {
             role:3
           });
           if (user === null) {
-            return {
-              status: "ERR",
-              message: "The user is not defined",
-            };
+            return "The user is not defined"
           }
           const comparePassword = bcrypt.compareSync(
             userLogin.password,
@@ -22,10 +19,8 @@ const  adminService= {
           );
     
           if (!comparePassword) {
-            return {
-              status: "ERR",
-              message: "The password or user is incorrect",
-            };
+            return  "The password or user is incorrect"
+          
           }
     
           const access_token = await genneralAccessToken({
