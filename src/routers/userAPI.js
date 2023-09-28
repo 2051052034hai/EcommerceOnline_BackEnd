@@ -1,5 +1,5 @@
 import express from "express";
-import userController from "../controllers/useController";
+import userController from "../controllers/userController";
 const userAPI = express.Router();
 
 userAPI.post("/user/register", userController.postCreateUser);
