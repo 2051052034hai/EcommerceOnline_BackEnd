@@ -30,6 +30,22 @@ const orderController = {
     }
   },
 
+  getOrderById: async (req, res) => {
+    const { id } = req.params;
+    try {
+      let result = await orderService.getOrderById(id, req.query);
+      return res.status(200).json({
+        EC: 0,
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        EC: 0,
+        data: error,
+      });
+    }
+  },
+
   getAllOrderDetailsByUser: async (req, res) => {
     try {
       const userId = req.params.id;

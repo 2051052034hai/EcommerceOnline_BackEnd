@@ -62,7 +62,6 @@ const productService = {
   },
   updateProduct: async (data) => {
     const { _id, ...rest } = data;
-    console.log(rest);
     try {
       let result = await Product.findOneAndUpdate({ _id }, rest);
       return result;

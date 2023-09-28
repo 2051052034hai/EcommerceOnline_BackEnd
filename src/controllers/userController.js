@@ -14,7 +14,7 @@ const userController = {
       if (check_email) {
         return res.status(400).json({
           EC: 1,
-          data: "email đã tồn tại",
+          data: "Email đã tồn tại",
         });
       }
       const newUser = {
