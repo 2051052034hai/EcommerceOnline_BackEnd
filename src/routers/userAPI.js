@@ -4,6 +4,7 @@ const userAPI = express.Router();
 
 userAPI.post("/user/register", userController.postCreateUser);
 userAPI.post("/user/login", userController.loginUser);
+userAPI.post("/user/login-gg", userController.loginUserGG);
 
 userAPI.get("/users", userController.getAllUsers);
 userAPI.get("/users/:id", userController.getUserByUserId);
