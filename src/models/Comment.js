@@ -8,15 +8,42 @@ const commentSchema = Schema(
       required: true,
     },
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
     productId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Product",
       required: true,
     },
+    parentCommentId: {
+      type: Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+    ancestors: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
+    replies: [
+      {
+        userId: {
+          type: Schema.Types.ObjectId,
+          ref: "User",
+        },
+        content: {
+          type: String,
+        },
+        ancestors: [
+          {
+            type: Schema.Types.ObjectId,
+            ref: "Comment",
+          },
+        ],
+      },
+    ],
   },
   { timestamps: true }
 );

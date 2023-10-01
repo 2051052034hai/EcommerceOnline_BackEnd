@@ -13,12 +13,17 @@ import shopAPI from "./routers/shopAPI";
 import orderAPI from "./routers/orderAPI";
 import uploadImageAPI from "./routers/uploadImageAPI";
 import adminAPI from "./routers/adminAPI";
+import commentAPI from "./routers/commentAPI";
 
 dotenv.config();
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+};
+app.use(cors(corsOptions));
 app.use(bodyParser.json()); // for json
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
@@ -40,6 +45,7 @@ app.use("/v1/api/", shopAPI);
 app.use("/v1/api/", orderAPI);
 app.use("/v1/api/", uploadImageAPI);
 app.use("/v1/api/", adminAPI);
+app.use("/v1/api/", commentAPI);
 
 app.listen(8000, () => {
   console.log(`Server is running ${8000}`);
