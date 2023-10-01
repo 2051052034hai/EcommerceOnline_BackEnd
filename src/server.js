@@ -19,10 +19,11 @@ dotenv.config();
 const app = express();
 
 const corsOptions = {
-  origin: "*",
+  origin: ["*", "https://www.facebook.com"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
 };
 app.use(cors(corsOptions));
+
 app.use(bodyParser.json()); // for json
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
