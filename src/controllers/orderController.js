@@ -147,9 +147,10 @@ const orderController = {
 
   updateOrderStatusPayment: async (req, res) => {
     try {
-      const { shopId, orderId} = req.body;
+      const { shopId, orderId } = req.body;
       const result = await orderService.updateOrderStatusPayment(
-        shopId, orderId
+        shopId,
+        orderId
       );
       return res.status(200).json({
         EC: 0,

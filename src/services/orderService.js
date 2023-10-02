@@ -1,9 +1,23 @@
 import aqp from "api-query-params";
 import Order from "../models/Order";
+import Product from "../models/Product";
 
 const orderService = {
   createOrder: async (order) => {
+    const { orderItems } = order;
     const newOrder = await Order.create(order);
+    for (const orderItem of orderItems) {
+      const { product, qty } = orderItem;
+
+      const existingProduct = await Product.findById(product);
+
+      if (existingProduct) {
+        existingProduct.stock -= qty;
+        existingProduct.sold += qty;
+
+        await existingProduct.save();
+      }
+    }
     return newOrder;
   },
   getAllOrder: async () => {
@@ -28,7 +42,6 @@ const orderService = {
     let total = 0;
 
     for (let order of result) {
-       
       let data = order.orderItems.filter((item) => {
         return item.shop.toString() === shopId;
       });
