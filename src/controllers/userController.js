@@ -1,4 +1,5 @@
 import User from "../models/User";
+import { sendEmailResetPassword } from "../services/emailService";
 import userService from "../services/userService";
 import bcrypt from "bcrypt";
 
@@ -130,6 +131,21 @@ const userController = {
       });
     }
   },
+  getUserByEmail: async (req, res) => {
+    try {
+      const { email } = req.body;
+      const result = await userService.getUserByEmail(email);
+      return res.status(200).json({
+        EC: 0,
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        EC: 0,
+        data: error,
+      });
+    }
+  },
   updateUserById: async (req, res) => {
     try {
       const { _id, username, updateAt, password } = req.body;
@@ -190,12 +206,43 @@ const userController = {
       return res.status(500).json({ message: "Lỗi server" });
     }
   },
+  resetPassword: async (req, res) => {
+    try {
+      const { email, newPassword } = req.body;
+      const result = await userService.resetPassword(email, newPassword);
+
+      return res.status(200).json({
+        EC: 0,
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        EC: 0,
+        data: error,
+      });
+    }
+  },
   deleteUser: async (req, res) => {
     try {
       const { id } = req.params;
 
       const result = userService.deleteUser({ _id: id });
       return res.status(204).json({
+        EC: 0,
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        EC: 0,
+        data: error,
+      });
+    }
+  },
+  sendMailResetPassword: async (req, res) => {
+    try {
+      const { email } = req.body;
+      const result = await sendEmailResetPassword(email);
+      return res.status(200).json({
         EC: 0,
         data: result,
       });
