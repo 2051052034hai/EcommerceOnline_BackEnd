@@ -56,49 +56,46 @@ const userService = {
     }
   },
   loginUserGG: async (userLogin) => {
-    const { email,username } = userLogin;
+    const { email, username } = userLogin;
 
     try {
       const user = await User.findOne({
         email: email,
       });
       if (user === null) {
-        const newUser = await User.create({email,username})
+        const newUser = await User.create({ email, username });
         const access_token = await genneralAccessToken({
           id: newUser.id,
           role: newUser.role,
         });
-  
+
         const refresh_token = await genneralRefreshToken({
           id: newUser.id,
           role: newUser.role,
         });
-  
+
         // Trả về user sau khi đã bỏ password
         const { password, ...other } = newUser._doc;
         const newUserUpdate = Object.assign({}, other);
-  
+
         return { ...newUserUpdate, access_token, refresh_token };
-      }else{
+      } else {
         const access_token = await genneralAccessToken({
           id: user.id,
           role: user.role,
         });
-  
+
         const refresh_token = await genneralRefreshToken({
           id: user.id,
           role: user.role,
         });
-  
+
         // Trả về user sau khi đã bỏ password
         const { password, ...other } = user._doc;
         const newUserUpdate = Object.assign({}, other);
-  
+
         return { ...newUserUpdate, access_token, refresh_token };
       }
-      
-
-      
     } catch (e) {
       return e;
     }
@@ -120,6 +117,14 @@ const userService = {
       return error;
     }
   },
+  getUserByEmail: async (email) => {
+    try {
+      const result = await User.findOne({ email: email });
+      return result;
+    } catch (error) {
+      return error;
+    }
+  },
   updateUserById: async (user) => {
     const { _id } = user;
     try {
@@ -133,6 +138,27 @@ const userService = {
     try {
       const result = await User.deleteOne({ _id });
       return result;
+    } catch (error) {
+      return error;
+    }
+  },
+
+  resetPassword: async (email, newPassword) => {
+    try {
+      const user = await User.findOne({ email: email });
+      if (user) {
+        const hashedNewPassword = bcrypt.hashSync(newPassword, 10);
+        await User.updateOne(
+          { _id: user._id },
+          { password: hashedNewPassword }
+        );
+        return user;
+      } else {
+        return {
+          status: "ERR",
+          message: "Email này chưa được đăng kí",
+        };
+      }
     } catch (error) {
       return error;
     }

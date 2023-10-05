@@ -84,10 +84,6 @@ const orderService = {
         { $set: { "orderItems.$[elem].statusPayment": true } },
         { new: true, arrayFilters: [{ "elem.shop": shopId }] }
       );
-
-      if (!updatedOrder) {
-        throw new Error("Không tìm thấy đơn hàng phù hợp");
-      }
       return updatedOrder;
     } catch (error) {
       throw error;

@@ -56,3 +56,40 @@ export const sendEmailCreateOrder = async (email, orderItems, total) => {
     console.log(error);
   }
 };
+
+export const sendEmailResetPassword = async (email) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.MAIL_ACCOUNT,
+        pass: process.env.MAIL_PASSWORD,
+      },
+    });
+    const generatedCode = Math.floor(100000 + Math.random() * 900000)
+    await transporter.sendMail({
+      from: process.env.MAIL_ACCOUNT,
+      to: email,
+      subject: "Khôi phục tài khoản",
+      text: "Password?",
+      html: `<div style="background-color: #f5f5f5; padding: 20px; font-family: Arial, sans-serif;">
+      <div style="background-color: #ffffff; max-width: 600px; margin: 0 auto; padding: 20px; border-radius: 5px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+        <h2 style="color: #333; text-align: center;">Đặt lại mật khẩu</h2>
+        <p style="color: #555; text-align: center;">Bạn đã yêu cầu đặt lại mật khẩu. Dưới đây là mã xác minh của bạn:</p>
+        <div style="background-color: #007bff; color: #fff; text-align: center; font-size: 20px; padding: 5px; border-radius: 5px;">
+          <span style="font-weight: bold;">${generatedCode}</span>
+        </div>
+        <p style="color: #555; text-align: center;">Vui lòng sử dụng mã này để đặt lại mật khẩu của bạn.</p>
+        <p style="color: #555; text-align: center;">Nếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này.</p>
+        <p style="color: #555; text-align: center;">Xin cảm ơn!</p>
+      </div>
+    </div>
+    `,
+    });
+    return generatedCode;
+  } catch (error) {
+    console.log(error);
+  }
+};
