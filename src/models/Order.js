@@ -23,6 +23,10 @@ const OrderSchema = new Schema(
           type: Boolean,
           default: false,
         },
+        providerPayment: {
+          type: Number,
+          defautl: 0,
+        },
       },
     ],
     total: {
