@@ -15,7 +15,7 @@ export const VnPayController = {
     let tmnCode = "KQKIDWHA";
     let secretKey = "OZCSRKXQUTQXZSLIHUJQDYCVVHZSIRBS";
     let vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    let returnUrl = "http://localhost:3000/result-payment";
+    let returnUrl = "https://ht-ecommerce.onrender.com/result-payment";
     let orderId = moment(date).format("DDHHmmss");
 
     let amount = req.body.total || 100000;
