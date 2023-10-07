@@ -14,6 +14,7 @@ import orderAPI from "./routers/orderAPI";
 import uploadImageAPI from "./routers/uploadImageAPI";
 import adminAPI from "./routers/adminAPI";
 import commentAPI from "./routers/commentAPI";
+import vnpayAPI from "./routers/vnpayAPI";
 
 dotenv.config();
 
@@ -43,6 +44,7 @@ app.use("/v1/api/", orderAPI);
 app.use("/v1/api/", uploadImageAPI);
 app.use("/v1/api/", adminAPI);
 app.use("/v1/api/", commentAPI);
+app.use("/v1/api/", vnpayAPI);
 
 app.listen(8000, () => {
   console.log(`Server is running ${8000}`);
