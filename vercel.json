@@ -9,11 +9,8 @@
   "routes": [
       {
           "src": "/(.*)",
-          "dest": "src/server.js",
-          "methods": ["GET", "POST", "PUT", "PATCH", "DELETE"],
-          "headers": {
-            "Access-Control-Allow-Origin": "*"
-          }
+          "dest": "src/server.js"
+          
       }
   ],
   "headers": [
