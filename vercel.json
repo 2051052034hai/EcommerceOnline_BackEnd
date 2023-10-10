@@ -15,23 +15,6 @@
             "Access-Control-Allow-Origin": "*"
           }
       }
-  ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "src/server.js" }
-],
-"headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" }
-      ]
-    },
-    {
-      "source": "/ht-shop-three.vercel.app/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" }
-      ]
-    }  
-]
+  ]
   
 }
