@@ -19,19 +19,7 @@ import vnpayAPI from "./routers/vnpayAPI";
 dotenv.config();
 
 const app = express();
-app.use(function (req, res, next) {
-  //Enabling CORS
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Max-Age", "1800");
-  res.setHeader("Access-Control-Allow-Headers", "content-type");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
-  );
-  // res.setHeader("Content-Type", "application/json;charset=utf-8"); // Opening this comment will cause problems
-  next();
-});
+app.user(cors());
 
 app.use(bodyParser.json()); // for json
 app.use(bodyParser.urlencoded({ extended: true }));
