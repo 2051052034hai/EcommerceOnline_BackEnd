@@ -21,6 +21,18 @@ const shopSchema = Schema(
       type: Boolean,
       default: false,
     },
+    provinceCode: {
+      type: String,
+      require: true,
+    },
+    districtCode: {
+      type: String,
+      require: true,
+    },
+    wardCode: {
+      type: String,
+      require: true,
+    },
   },
   { timestamps: true }
 );

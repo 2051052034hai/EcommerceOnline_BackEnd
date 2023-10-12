@@ -55,6 +55,10 @@ const productSchema = Schema({
     ref: "Shop",
     required: true,
   },
+  weight: {
+    type: Number,
+    default: 50,
+  },
 });
 
 // Override all methods
