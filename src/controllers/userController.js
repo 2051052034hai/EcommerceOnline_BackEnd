@@ -1,7 +1,14 @@
 import User from "../models/User";
-import { sendEmailResetPassword } from "../services/emailService";
 import userService from "../services/userService";
 import bcrypt from "bcrypt";
+
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
+import {
+  genneralRefreshToken,
+  genneralAccessToken,
+} from "../services/jwtService";
 
 const userController = {
   postCreateUser: async (req, res) => {
@@ -131,21 +138,6 @@ const userController = {
       });
     }
   },
-  getUserByEmail: async (req, res) => {
-    try {
-      const { email } = req.body;
-      const result = await userService.getUserByEmail(email);
-      return res.status(200).json({
-        EC: 0,
-        data: result,
-      });
-    } catch (error) {
-      return res.status(500).json({
-        EC: 0,
-        data: error,
-      });
-    }
-  },
   updateUserById: async (req, res) => {
     try {
       const { _id, username, updateAt, password } = req.body;
@@ -206,22 +198,6 @@ const userController = {
       return res.status(500).json({ message: "Lỗi server" });
     }
   },
-  resetPassword: async (req, res) => {
-    try {
-      const { email, newPassword } = req.body;
-      const result = await userService.resetPassword(email, newPassword);
-
-      return res.status(200).json({
-        EC: 0,
-        data: result,
-      });
-    } catch (error) {
-      return res.status(500).json({
-        EC: 0,
-        data: error,
-      });
-    }
-  },
   deleteUser: async (req, res) => {
     try {
       const { id } = req.params;
@@ -238,18 +214,44 @@ const userController = {
       });
     }
   },
-  sendMailResetPassword: async (req, res) => {
+  refreshToken: async (req, res) => {
     try {
-      const { email } = req.body;
-      const result = await sendEmailResetPassword(email);
-      return res.status(200).json({
-        EC: 0,
-        data: result,
-      });
-    } catch (error) {
-      return res.status(500).json({
-        EC: 0,
-        data: error,
+      let token = req.body.refresh;
+      if (!token) {
+        return res.status(400).json({
+          status: "ERR",
+          message: "The token is required",
+        });
+      }
+      try {
+        jwt.verify(token, process.env.JWT_REFRESH_KEY, async (err, user) => {
+          if (err) {
+            return {
+              status: "ERR",
+              message: "The authentication",
+            };
+          }
+          const access_token = await genneralAccessToken({
+            id: user?.id,
+            role: user?.role,
+          });
+
+          const refresh_token = await genneralRefreshToken({
+            id: user?.id,
+            role: user?.role,
+          });
+
+          return res.status(200).json({
+            access_token,
+            refresh_token,
+          });
+        });
+      } catch (e) {
+        return e;
+      }
+    } catch (e) {
+      return res.status(404).json({
+        message: e,
       });
     }
   },

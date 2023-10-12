@@ -3,13 +3,14 @@ const jwt = require("jsonwebtoken");
 const authMiddleWare = {
   //verify
   verifyToken: async (req, res, next) => {
-    const token = req.headers.token;
+    const token = req.headers.authorization;
     if (token) {
       //Bearer 12355
       const accessToken = token.split(" ")[1];
+
       jwt.verify(accessToken, process.env.JWT_ACCESS_KEY, (err, user) => {
         if (err) {
-          return res.status(403).json({
+          return res.status(419).json({
             EC: 1,
             data: "Token is not valid",
           });
