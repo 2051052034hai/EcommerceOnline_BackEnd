@@ -2,6 +2,14 @@ import User from "../models/User";
 import userService from "../services/userService";
 import bcrypt from "bcrypt";
 
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
+import {
+  genneralRefreshToken,
+  genneralAccessToken,
+} from "../services/jwtService";
+
 const userController = {
   postCreateUser: async (req, res) => {
     const { email } = req.body;
@@ -203,6 +211,47 @@ const userController = {
       return res.status(500).json({
         EC: 0,
         data: error,
+      });
+    }
+  },
+  refreshToken: async (req, res) => {
+    try {
+      let token = req.body.refresh;
+      if (!token) {
+        return res.status(400).json({
+          status: "ERR",
+          message: "The token is required",
+        });
+      }
+      try {
+        jwt.verify(token, process.env.JWT_REFRESH_KEY, async (err, user) => {
+          if (err) {
+            return {
+              status: "ERR",
+              message: "The authentication",
+            };
+          }
+          const access_token = await genneralAccessToken({
+            id: user?.id,
+            role: user?.role,
+          });
+
+          const refresh_token = await genneralRefreshToken({
+            id: user?.id,
+            role: user?.role,
+          });
+
+          return res.status(200).json({
+            access_token,
+            refresh_token,
+          });
+        });
+      } catch (e) {
+        return e;
+      }
+    } catch (e) {
+      return res.status(404).json({
+        message: e,
       });
     }
   },
