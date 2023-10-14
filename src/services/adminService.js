@@ -4,7 +4,6 @@ import { genneralAccessToken, genneralRefreshToken } from "./jwtService";
 
 const adminService = {
   loginUser: async (userLogin) => {
-    console.log(userLogin);
     const { email, password } = userLogin;
 
     try {
