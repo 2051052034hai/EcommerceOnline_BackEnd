@@ -7,11 +7,7 @@ shopAPI.post("/shop", ShopController.createShop);
 
 shopAPI.get("/productShop/:id", ShopController.getProductsByShopId);
 shopAPI.get("/shop/:id", ShopController.getShopIdByUserId);
-shopAPI.get(
-  "/shop",
-  authMiddleWare.verifyTokenAndAdminAuth,
-  ShopController.getAllShops
-);
+shopAPI.get("/shop", ShopController.getAllShops);
 
 shopAPI.put(
   "/shop",
