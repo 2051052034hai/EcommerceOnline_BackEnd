@@ -22,6 +22,11 @@ const productService = {
 
       delete filter.page;
 
+      const title = queryString.title;
+      if (title) {
+        filter.title = new RegExp(queryString.title, "i");
+      }
+
       let result = await Product.find(filter)
         .populate(population)
         .skip(offset)
