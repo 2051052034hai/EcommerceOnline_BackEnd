@@ -8,7 +8,7 @@ export const genneralAccessToken = async (payload) => {
       ...payload,
     },
     process.env.JWT_ACCESS_KEY,
-    { expiresIn: "30s" }
+    { expiresIn: "30day" }
   );
 
   return access_token;
