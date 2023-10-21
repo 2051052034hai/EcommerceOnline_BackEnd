@@ -33,6 +33,11 @@ const OrderSchema = new Schema(
       type: Number,
       required: true,
     },
+    totalShip: {
+      type: Number,
+      default: 50,
+      required: true,
+    },
   },
   {
     timestamps: true,
