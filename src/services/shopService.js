@@ -6,11 +6,6 @@ import User from "../models/User";
 const ShopService = {
   createShop: async (infoShop) => {
     try {
-      const { userId } = infoShop;
-      const user = await User.findOne({ _id: userId });
-      user.role = 2;
-
-      await User.updateOne({ _id: userId }, user);
       const result = await Shop.create(infoShop);
       return result;
     } catch (error) {
@@ -81,7 +76,11 @@ const ShopService = {
   },
   updateShopById: async (shop) => {
     try {
-      const { _id, ...rest } = shop;
+      const { _id, userId, ...rest } = shop;
+      const user = await User.findOne({ _id: userId });
+      user.role = 2;
+
+      await User.updateOne({ _id: userId }, user);
       const result = await Shop.updateOne({ _id }, rest);
       return result;
     } catch (error) {
