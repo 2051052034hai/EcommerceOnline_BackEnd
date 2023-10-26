@@ -110,17 +110,16 @@ const orderController = {
     }
   },
 
-  cancelOrderDetails: async (req, res) => {
+  cancelOrder: async (req, res) => {
     try {
-      const data = req.body.orderItems;
-      const orderId = req.body.orderId;
+      const orderId = req.params.id;
       if (!orderId) {
         return res.status(200).json({
           status: "ERR",
           message: "The orderId is required",
         });
       }
-      const response = await orderService.cancelOrderDetails(orderId, data);
+      const response = await orderService.cancelOrderDetails(orderId);
       return res.status(200).json(response);
     } catch (e) {
       // console.log(e)

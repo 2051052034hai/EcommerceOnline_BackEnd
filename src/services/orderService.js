@@ -102,6 +102,26 @@ const orderService = {
       throw error;
     }
   },
+  cancelOrderDetails: async (orderId) => {
+    try {
+      const order = await Order.findByIdAndDelete(orderId);
+      for (const orderItem of order.orderItems) {
+        const { product, qty } = orderItem;
+
+        const existingProduct = await Product.findById(product);
+
+        if (existingProduct) {
+          existingProduct.stock += qty;
+          existingProduct.sold -= qty;
+
+          await existingProduct.save();
+        }
+        return order.userId;
+      }
+    } catch (error) {
+      return error;
+    }
+  },
 };
 
 export default orderService;

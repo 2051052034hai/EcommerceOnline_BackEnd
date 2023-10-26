@@ -38,6 +38,10 @@ const OrderSchema = new Schema(
       default: 50,
       required: true,
     },
+    isDelivery: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
