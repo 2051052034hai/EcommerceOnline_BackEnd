@@ -51,10 +51,13 @@ const orderService = {
         orderArr.push({
           orderId: order._id,
           userId: order.userId,
+          totalShip: order.totalShip,
+          isDelivery: order.isDelivery,
           createdAt: order.createdAt,
           data,
         });
       }
+      console.log("orderArr:",orderArr)
     }
 
     return {
@@ -87,14 +90,14 @@ const orderService = {
       .exec();
     return orders;
   },
-  updateOrderStatusPayment: async (shopId, orderId) => {
+  updateOrderStatusPayment: async (shopId, orderId, isDelivery) => {
     try {
       const updatedOrder = await Order.findOneAndUpdate(
         {
           _id: orderId,
           "orderItems.shop": shopId,
         },
-        { $set: { "orderItems.$[elem].statusPayment": true } },
+        { $set: { "orderItems.$[elem].statusPayment": true, isDelivery: true} },
         { new: true, arrayFilters: [{ "elem.shop": shopId }] }
       );
       return updatedOrder;
