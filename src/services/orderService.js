@@ -104,8 +104,8 @@ const orderService = {
   },
   cancelOrderDetails: async (orderId) => {
     try {
-      const order = await Order.findByIdAndDelete(orderId);
-      for (const orderItem of order.orderItems) {
+      const orderBefore = await Order.findById(orderId);
+      for (const orderItem of orderBefore.orderItems) {
         const { product, qty } = orderItem;
 
         const existingProduct = await Product.findById(product);
@@ -116,9 +116,12 @@ const orderService = {
 
           await existingProduct.save();
         }
-        return order.userId;
       }
+      const order = await Order.deleteById(orderId);
+
+      return orderBefore.userId;
     } catch (error) {
+      console.log(error);
       return error;
     }
   },

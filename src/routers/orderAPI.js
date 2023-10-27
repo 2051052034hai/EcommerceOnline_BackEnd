@@ -13,6 +13,6 @@ orderAPI.get("/order/:id", orderController.getOrderById);
 orderAPI.get("/order-by-user/:id", orderController.getAllOrderDetailsByUser);
 orderAPI.get("/order-by-shop/:id", orderController.getAllOrderDetailsByShopId);
 orderAPI.put("/order/status", orderController.updateOrderStatusPayment);
-orderAPI.post("/order/:id", orderController.cancelOrder);
+orderAPI.delete("/order/:id", orderController.cancelOrder);
 
 export default orderAPI;
