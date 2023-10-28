@@ -5,7 +5,6 @@ const uploadImageController = {
   createImage: async (req, res) => {
     try {
       const { image } = req.files;
-      console.log(image);
 
       let mainImage = "";
       if (!req.files || Object.keys(req.files).length === 0) {
