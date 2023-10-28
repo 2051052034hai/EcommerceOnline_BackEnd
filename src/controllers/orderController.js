@@ -120,7 +120,10 @@ const orderController = {
         });
       }
       const response = await orderService.cancelOrderDetails(orderId);
-      return res.status(200).json(response);
+      return res.status(200).json({
+        EC: 0,
+        data: response,
+      });
     } catch (e) {
       // console.log(e)
       return res.status(404).json({
