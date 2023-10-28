@@ -90,7 +90,7 @@ const orderService = {
       .exec();
     return orders;
   },
-  updateOrderStatusPayment: async (shopId, orderId, isDelivery) => {
+  updateOrderStatusPayment: async (shopId, orderId) => {
     try {
       const updatedOrder = await Order.findOneAndUpdate(
         {

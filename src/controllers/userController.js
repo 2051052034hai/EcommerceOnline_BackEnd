@@ -159,7 +159,6 @@ const userController = {
           updateAt,
         };
       }
-      console.log(user);
       const result = await userService.updateUserById(user);
       return res.status(200).json({
         EC: 0,
