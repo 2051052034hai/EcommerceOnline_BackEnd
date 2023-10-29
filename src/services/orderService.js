@@ -57,7 +57,6 @@ const orderService = {
           data,
         });
       }
-      console.log("orderArr:",orderArr)
     }
 
     return {
@@ -97,7 +96,9 @@ const orderService = {
           _id: orderId,
           "orderItems.shop": shopId,
         },
-        { $set: { "orderItems.$[elem].statusPayment": true, isDelivery: true} },
+        {
+          $set: { "orderItems.$[elem].statusPayment": true, isDelivery: true },
+        },
         { new: true, arrayFilters: [{ "elem.shop": shopId }] }
       );
       return updatedOrder;
@@ -127,6 +128,38 @@ const orderService = {
       console.log(error);
       return error;
     }
+  },
+  getOrderCancelByShop: async (shopId, queryString) => {
+    const { filter, population } = aqp(queryString);
+
+    delete filter.page;
+
+    let result = await Order.findDeleted(filter).populate(population).exec();
+    const orderArr = [];
+    let total = 0;
+
+    for (let order of result) {
+      let data = order.orderItems.filter((item) => {
+        return item.shop.toString() == shopId;
+      });
+
+      if (data.length > 0) {
+        total += 1;
+        orderArr.push({
+          orderId: order._id,
+          userId: order.userId,
+          totalShip: order.totalShip,
+          isDelivery: order.isDelivery,
+          createdAt: order.createdAt,
+          data,
+        });
+      }
+    }
+
+    return {
+      total: total,
+      result: orderArr,
+    };
   },
 };
 

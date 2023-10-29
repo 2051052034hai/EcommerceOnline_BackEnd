@@ -165,6 +165,21 @@ const orderController = {
       });
     }
   },
+  getOrderCancelByShop: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await orderService.getOrderCancelByShop(id, req.query);
+      return res.status(200).json({
+        EC: 0,
+        data: result,
+      });
+    } catch (e) {
+      return res.status(404).json({
+        EC: 1,
+        data: e,
+      });
+    }
+  },
 };
 
 export default orderController;

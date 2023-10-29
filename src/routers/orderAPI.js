@@ -12,6 +12,8 @@ orderAPI.get(
 orderAPI.get("/order/:id", orderController.getOrderById);
 orderAPI.get("/order-by-user/:id", orderController.getAllOrderDetailsByUser);
 orderAPI.get("/order-by-shop/:id", orderController.getAllOrderDetailsByShopId);
+orderAPI.get("/order-cancel-by-shop/:id", orderController.getOrderCancelByShop);
+
 orderAPI.put("/order/status", orderController.updateOrderStatusPayment);
 orderAPI.delete("/order/:id", orderController.cancelOrder);
 
