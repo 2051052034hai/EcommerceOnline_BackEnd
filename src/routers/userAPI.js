@@ -17,7 +17,7 @@ userAPI.get("/users/:id", userController.getUserByUserId);
 
 userAPI.put(
   "/users",
-  authMiddleWare.verifyTokenAndAdminAuth,
+  // authMiddleWare.verifyTokenAndAdminAuth,
   userController.updateUserById
 );
 userAPI.post("/change-password", userController.changePassword);

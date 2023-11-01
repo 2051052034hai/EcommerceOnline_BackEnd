@@ -125,6 +125,7 @@ const userController = {
     }
   },
   getUserByUserId: async (req, res) => {
+ 
     try {
       const userId = req.params.id;
       const result = await userService.getUserByUserId(userId);
@@ -141,7 +142,7 @@ const userController = {
   },
   updateUserById: async (req, res) => {
     try {
-      const { _id, username, updateAt, password } = req.body;
+      const { _id, username,updateAt, email, password } = req.body;
       let user = {};
       if (password) {
         const salt = await bcrypt.genSalt(10);
@@ -150,12 +151,14 @@ const userController = {
           _id,
           username,
           updateAt,
+          email,
           password: hashed,
         };
       } else {
         user = {
           _id,
           username,
+          email,
           updateAt,
         };
       }
