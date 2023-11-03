@@ -125,7 +125,6 @@ const userController = {
     }
   },
   getUserByUserId: async (req, res) => {
- 
     try {
       const userId = req.params.id;
       const result = await userService.getUserByUserId(userId);
@@ -142,7 +141,7 @@ const userController = {
   },
   updateUserById: async (req, res) => {
     try {
-      const { _id, username,updateAt, email, password } = req.body;
+      const { _id, username, updateAt, email, password } = req.body;
       let user = {};
       if (password) {
         const salt = await bcrypt.genSalt(10);
@@ -293,6 +292,21 @@ const userController = {
     try {
       const { email } = req.body;
       const result = await sendEmailResetPassword(email);
+      return res.status(200).json({
+        EC: 0,
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        EC: 0,
+        data: error,
+      });
+    }
+  },
+  checkedPassword: async (req, res) => {
+    try {
+      const { _id, password } = req.body;
+      const result = await userService.checkedPassword(_id, password);
       return res.status(200).json({
         EC: 0,
         data: result,
