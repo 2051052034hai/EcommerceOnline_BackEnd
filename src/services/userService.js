@@ -163,5 +163,18 @@ const userService = {
       return error;
     }
   },
+  checkedPassword: async (userId, password) => {
+    try {
+      const user = await User.findOne({ _id: userId });
+      if (!user) {
+        return false;
+      }
+      const isMatch = bcrypt.compareSync(password, user.password);
+      return isMatch;
+      
+    } catch (error) {
+      return false;
+    }
+  },
 };
 export default userService;
