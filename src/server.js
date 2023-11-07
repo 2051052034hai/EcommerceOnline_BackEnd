@@ -19,7 +19,14 @@ import vnpayAPI from "./routers/vnpayAPI";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    credentials: true,
+  })
+);
 
 app.use(bodyParser.json()); // for json
 app.use(bodyParser.urlencoded({ extended: true }));
