@@ -69,6 +69,7 @@ const productController = {
   },
   getAllProducts: async (req, res) => {
     try {
+    
       const { result, total } = await productService.getProducts(req.query);
       return res.status(200).json({
         EC: 0,

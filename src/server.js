@@ -34,6 +34,7 @@ app.use(fileUpload());
 
 mongoose
   .connect(process.env.MONGODB_URL, {
+    dbName: "ecommerdata",
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

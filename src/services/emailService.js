@@ -68,7 +68,10 @@ export const sendEmailResetPassword = async (email) => {
         pass: process.env.MAIL_PASSWORD,
       },
     });
-    const generatedCode = Math.floor(100000 + Math.random() * 900000)
+    const generatedCode = Math.floor(100000 + Math.random() * 900000);
+
+    //console.log("generatedCode:", generatedCode);
+
     await transporter.sendMail({
       from: process.env.MAIL_ACCOUNT,
       to: email,
