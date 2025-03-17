@@ -1,7 +1,10 @@
 import User from "../models/User";
 import userService from "../services/userService";
 import bcrypt from "bcrypt";
-import { sendEmailResetPassword } from "../services/emailService";
+import {
+  sendEmailResetPassword,
+  sendEmailRegisterUser,
+} from "../services/emailService";
 
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -307,6 +310,21 @@ const userController = {
     try {
       const { _id, password } = req.body;
       const result = await userService.checkedPassword(_id, password);
+      return res.status(200).json({
+        EC: 0,
+        data: result,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        EC: 0,
+        data: error,
+      });
+    }
+  },
+  sendEmailRegister: async (req, res) => {
+    try {
+      const { email, username } = req.body;
+      const result = await sendEmailRegisterUser(email, username);
       return res.status(200).json({
         EC: 0,
         data: result,

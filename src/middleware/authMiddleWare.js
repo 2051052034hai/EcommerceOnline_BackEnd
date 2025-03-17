@@ -40,7 +40,7 @@ const authMiddleWare = {
             data: "Token is not valid",
           });
         }
-        console.log(user);
+        //console.log(user);
         if (user.role === 3) {
           next();
         }

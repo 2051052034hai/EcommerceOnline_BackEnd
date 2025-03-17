@@ -46,9 +46,6 @@ export const refreshTokenJwtService = async (token) => {
         id: user?.id,
         role: user?.role,
       });
-
-      console.log("a", access_token);
-      console.log("r", refresh_token);
     });
     return {
       access_token,

@@ -31,5 +31,6 @@ userAPI.post("/user/checkedPassword", userController.checkedPassword);
 userAPI.post("/user/resetPassword", userController.resetPassword);
 userAPI.post("/user/resend-email", userController.sendMailResetPassword);
 userAPI.get("/user/email", userController.getUserByEmail);
+userAPI.post("/user/sendEmailRegister", userController.sendEmailRegister);
 
 export default userAPI;
