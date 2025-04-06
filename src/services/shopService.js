@@ -1,7 +1,7 @@
-import Shop from "../models/Shop";
-import Product from "../models/Product";
+import Shop from "../models/Shop.js";
+import Product from "../models/Product.js";
 import aqp from "api-query-params";
-import User from "../models/User";
+import User from "../models/User.js";
 
 const ShopService = {
   createShop: async (infoShop) => {

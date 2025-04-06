@@ -1,6 +1,6 @@
 import aqp from "api-query-params";
-import Order from "../models/Order";
-import Product from "../models/Product";
+import Order from "../models/Order.js";
+import Product from "../models/Product.js";
 
 const orderService = {
   createOrder: async (order) => {

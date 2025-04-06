@@ -1,5 +1,5 @@
-import categoryService from "../services/categoryService";
-import SubCategoryService from "../services/subCategoryService";
+import categoryService from "../services/categoryService.js";
+import SubCategoryService from "../services/subCategoryService.js";
 
 const categoryController = {
   getAllSubCategory: async (req, res) => {

@@ -1,4 +1,5 @@
-const jwt = require("jsonwebtoken");
+//const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
 const authMiddleWare = {
   //verify
@@ -40,7 +41,6 @@ const authMiddleWare = {
             data: "Token is not valid",
           });
         }
-        //console.log(user);
         if (user.role === 3) {
           next();
         }

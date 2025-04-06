@@ -1,6 +1,6 @@
-import User from "../models/User";
+import User from "../models/User.js";
 import bcrypt from "bcrypt";
-import { genneralAccessToken, genneralRefreshToken } from "./jwtService";
+import { genneralAccessToken, genneralRefreshToken } from "./jwtService.js";
 
 const userService = {
   saveUser: async (user) => {
@@ -171,7 +171,6 @@ const userService = {
       }
       const isMatch = bcrypt.compareSync(password, user.password);
       return isMatch;
-      
     } catch (error) {
       return false;
     }

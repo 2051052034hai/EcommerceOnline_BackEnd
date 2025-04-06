@@ -1,6 +1,9 @@
-import productService from "../services/productService";
-import uploadImage from "../config/cloundinary";
-import { uploadSingleFile, uploadMultipleFiles } from "../services/fileService";
+import productService from "../services/productService.js";
+import uploadImage from "../config/cloundinary.js";
+import {
+  uploadSingleFile,
+  uploadMultipleFiles,
+} from "../services/fileService.js";
 
 const productController = {
   postCreateProduct: async (req, res) => {
@@ -69,7 +72,6 @@ const productController = {
   },
   getAllProducts: async (req, res) => {
     try {
-    
       const { result, total } = await productService.getProducts(req.query);
       return res.status(200).json({
         EC: 0,

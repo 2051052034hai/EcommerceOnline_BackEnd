@@ -1,10 +1,10 @@
-import User from "../models/User";
-import userService from "../services/userService";
+import User from "../models/User.js";
+import userService from "../services/userService.js";
 import bcrypt from "bcrypt";
 import {
   sendEmailResetPassword,
   sendEmailRegisterUser,
-} from "../services/emailService";
+} from "../services/emailService.js";
 
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -12,7 +12,7 @@ dotenv.config();
 import {
   genneralRefreshToken,
   genneralAccessToken,
-} from "../services/jwtService";
+} from "../services/jwtService.js";
 
 const userController = {
   postCreateUser: async (req, res) => {

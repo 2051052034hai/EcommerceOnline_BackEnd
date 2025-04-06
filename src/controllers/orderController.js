@@ -1,6 +1,6 @@
-import orderService from "../services/orderService";
-import { sendEmailCreateOrder } from "../services/emailService";
-import userService from "../services/userService";
+import orderService from "../services/orderService.js";
+import { sendEmailCreateOrder } from "../services/emailService.js";
+import userService from "../services/userService.js";
 
 const orderController = {
   createOrder: async (req, res) => {
@@ -125,7 +125,6 @@ const orderController = {
         data: response,
       });
     } catch (e) {
-      // console.log(e)
       return res.status(404).json({
         message: e,
       });

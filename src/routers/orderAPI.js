@@ -1,6 +1,6 @@
 import express from "express";
-import orderController from "../controllers/orderController";
-import authMiddleWare from "../middleware/authMiddleWare";
+import orderController from "../controllers/orderController.js";
+import authMiddleWare from "../middleware/authMiddleWare.js";
 const orderAPI = express.Router();
 
 orderAPI.post("/order", orderController.createOrder);

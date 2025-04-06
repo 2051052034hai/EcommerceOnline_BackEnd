@@ -1,5 +1,5 @@
-import uploadImage from "../config/cloundinary";
-import { uploadSingleFile } from "../services/fileService";
+import uploadImage from "../config/cloundinary.js";
+import { uploadSingleFile } from "../services/fileService.js";
 
 const uploadImageController = {
   createImage: async (req, res) => {

@@ -1,5 +1,5 @@
 import express from "express";
-import { VnPayController } from "../controllers/vnpayController";
+import { VnPayController } from "../controllers/vnpayController.js";
 const vnpayAPI = express.Router();
 
 vnpayAPI.post("/create_payment_url", VnPayController.createPayment);

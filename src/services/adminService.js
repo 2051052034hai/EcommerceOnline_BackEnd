@@ -1,6 +1,6 @@
-import User from "../models/User";
+import User from "../models/User.js";
 import bcrypt from "bcrypt";
-import { genneralAccessToken, genneralRefreshToken } from "./jwtService";
+import { genneralAccessToken, genneralRefreshToken } from "./jwtService.js";
 
 const adminService = {
   loginUser: async (userLogin) => {

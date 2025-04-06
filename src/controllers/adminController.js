@@ -1,5 +1,5 @@
 
-import adminService from "../services/adminService";
+import adminService from "../services/adminService.js";
 
 const adminController = {
   loginAdmin: async (req, res) => {

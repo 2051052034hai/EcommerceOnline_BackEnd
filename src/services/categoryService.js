@@ -1,5 +1,5 @@
 import aqp from "api-query-params";
-import Category from "../models/Category";
+import Category from "../models/Category.js";
 
 const categoryService = {
   getAllCategory: async (queryString) => {

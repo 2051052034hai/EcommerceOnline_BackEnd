@@ -1,5 +1,5 @@
-import Comment from "../models/Comment";
-import Product from "../models/Product";
+import Comment from "../models/Comment.js";
+import Product from "../models/Product.js";
 import aqp from "api-query-params";
 
 const CommentService = {

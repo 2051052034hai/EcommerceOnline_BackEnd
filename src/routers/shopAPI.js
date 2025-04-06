@@ -1,6 +1,6 @@
 import express from "express";
-import ShopController from "../controllers/shopController";
-import authMiddleWare from "../middleware/authMiddleWare";
+import ShopController from "../controllers/shopController.js";
+import authMiddleWare from "../middleware/authMiddleWare.js";
 const shopAPI = express.Router();
 
 shopAPI.post("/shop", ShopController.createShop);

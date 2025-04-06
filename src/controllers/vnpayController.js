@@ -1,4 +1,7 @@
 import moment from "moment";
+import crypto from "crypto";
+import * as qs from "qs";
+
 export const VnPayController = {
   createPayment: (req, res) => {
     process.env.TZ = "Asia/Ho_Chi_Minh";
@@ -16,7 +19,8 @@ export const VnPayController = {
     let secretKey = "FZTKM5NB93R8CK4FQYCSTJIA85RMHTAO";
     let vnpUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     //let returnUrl = "https://ht-ecommerce.onrender.com/result-payment";
-    let returnUrl = "http://localhost:3000/result-payment";
+    //let returnUrl = "http://localhost:3000/result-payment";
+    let returnUrl = "https://web.hai.lampyris.dev/result-payment";
     let orderId = moment(date).format("DDHHmmss");
 
     let amount = req.body.total || 100000;
@@ -46,9 +50,7 @@ export const VnPayController = {
 
     vnp_Params = sortObject(vnp_Params);
 
-    let querystring = require("qs");
-    let signData = querystring.stringify(vnp_Params, { encode: false });
-    let crypto = require("crypto");
+    let signData = qs.stringify(vnp_Params, { encode: false });
     let hmac = crypto.createHmac("sha512", secretKey);
     let signed = hmac.update(Buffer.from(signData, "utf-8")).digest("hex");
     vnp_Params["vnp_SecureHash"] = signed;
@@ -68,9 +70,7 @@ export const VnPayController = {
     let tmnCode = "1UP6YHT7";
     let secretKey = "FZTKM5NB93R8CK4FQYCSTJIA85RMHTAO";
 
-    let querystring = require("qs");
-    let signData = querystring.stringify(vnp_Params, { encode: false });
-    let crypto = require("crypto");
+    let signData = qs.stringify(vnp_Params, { encode: false });
     let hmac = crypto.createHmac("sha512", secretKey);
     let signed = hmac.update(new Buffer(signData, "utf-8")).digest("hex");
 

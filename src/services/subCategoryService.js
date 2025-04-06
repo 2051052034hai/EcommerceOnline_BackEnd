@@ -1,6 +1,6 @@
-import Category from "../models/Category";
-import Subcategory from "../models/Subcategory";
-import Product from "../models/Product";
+import Category from "../models/Category.js";
+import Subcategory from "../models/Subcategory.js";
+import Product from "../models/Product.js";
 
 import aqp from "api-query-params";
 
@@ -82,8 +82,8 @@ const SubCategoryService = {
         .skip(offset)
         .limit(limit)
         .exec();
-    const productsBySubId = await Product.find({subcategory: id});
-     return {
+      const productsBySubId = await Product.find({ subcategory: id });
+      return {
         total: productsBySubId.length,
         product,
       };

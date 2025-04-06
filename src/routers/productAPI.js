@@ -1,5 +1,5 @@
 import express from "express";
-import productController from "../controllers/productController";
+import productController from "../controllers/productController.js";
 const productAPI = express.Router();
 
 productAPI.post("/product", productController.postCreateProduct);

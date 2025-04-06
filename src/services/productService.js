@@ -1,4 +1,4 @@
-import Product from "../models/Product";
+import Product from "../models/Product.js";
 import aqp from "api-query-params";
 
 const productService = {

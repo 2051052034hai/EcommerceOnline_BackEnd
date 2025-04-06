@@ -5,16 +5,16 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import fileUpload from "express-fileupload";
 
-import categoryAPI from "./routers/categoryAPI";
-import userAPI from "./routers/userAPI";
-import productAPI from "./routers/productAPI";
-import subCategoryAPI from "./routers/subCategory";
-import shopAPI from "./routers/shopAPI";
-import orderAPI from "./routers/orderAPI";
-import uploadImageAPI from "./routers/uploadImageAPI";
-import adminAPI from "./routers/adminAPI";
-import commentAPI from "./routers/commentAPI";
-import vnpayAPI from "./routers/vnpayAPI";
+import categoryAPI from "./routers/categoryAPI.js";
+import userAPI from "./routers/userAPI.js";
+import productAPI from "./routers/productAPI.js";
+import subCategoryAPI from "./routers/subCategory.js";
+import shopAPI from "./routers/shopAPI.js";
+import orderAPI from "./routers/orderAPI.js";
+import uploadImageAPI from "./routers/uploadImageAPI.js";
+import adminAPI from "./routers/adminAPI.js";
+import commentAPI from "./routers/commentAPI.js";
+import vnpayAPI from "./routers/vnpayAPI.js";
 
 dotenv.config();
 

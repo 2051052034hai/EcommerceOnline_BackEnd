@@ -1,6 +1,6 @@
 import express from "express";
-import userController from "../controllers/userController";
-import authMiddleWare from "../middleware/authMiddleWare";
+import userController from "../controllers/userController.js";
+import authMiddleWare from "../middleware/authMiddleWare.js";
 const userAPI = express.Router();
 
 userAPI.post("/user/register", userController.postCreateUser);

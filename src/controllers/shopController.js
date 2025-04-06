@@ -1,5 +1,5 @@
-import User from "../models/User";
-import ShopService from "../services/shopService";
+import User from "../models/User.js";
+import ShopService from "../services/shopService.js";
 
 const ShopController = {
   createShop: async (req, res) => {
